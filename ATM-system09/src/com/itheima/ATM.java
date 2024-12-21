@@ -4,8 +4,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class ATM {
-    private ArrayList<Account> accounts = new ArrayList<>(); // []
-    private Scanner sc = new Scanner(System.in);
+    private final ArrayList<Account> accounts = new ArrayList<>(); // []
+    private final Scanner sc = new Scanner(System.in);
     private Account loginAcc; // 记住登录后的用户账户
     /** 启动ATM系统 展示欢迎界面 */
     public void start(){
@@ -15,17 +15,14 @@ public class ATM {
             System.out.println("2、用户开户");
             System.out.println("请选择：");
             int command = sc.nextInt();
-            switch (command){
-                case 1:
+            switch (command) {
+                case 1 ->
                     // 用户登录
-                    login();
-                    break;
-                case 2:
+                        login();
+                case 2 ->
                     // 用户开户
-                    createAccount();
-                    break;
-                default:
-                    System.out.println("没有该操作~~");
+                        createAccount();
+                default -> System.out.println("没有该操作~~");
             }
         }
     }
@@ -34,7 +31,7 @@ public class ATM {
     private void login(){
         System.out.println("==系统登录==");
         // 1、判断系统中是否存在账户对象，存在才能登录，如果不存在，我们直接结束登录操作
-        if(accounts.size() == 0){
+        if(accounts.isEmpty()){
             System.out.println("当前系统中无任何账户，请先开户再来登录~~");
             return; // 跳出登录操作。
         }
@@ -82,40 +79,37 @@ public class ATM {
             System.out.println("7、注销当前账户");
             System.out.println("请选择：");
             int command = sc.nextInt();
-            switch (command){
-                case 1:
+            switch (command) {
+                case 1 ->
                     // 查询当前账户
-                    showLoginAccount();
-                    break;
-                case 2:
+                        showLoginAccount();
+                case 2 ->
                     // 存款
-                    depositMoney();
-                    break;
-                case 3:
+                        depositMoney();
+                case 3 ->
                     // 取款
-                    drawMoney();
-                    break;
-                case 4:
+                        drawMoney();
+                case 4 ->
                     // 转账
-                    transferMoney();
-                    break;
-                case 5:
+                        transferMoney();
+                case 5 -> {
                     // 密码修改
                     updatePassWord();
                     return;// 跳出并结束当前方法
-                case 6:
+                }
+                case 6 -> {
                     // 退出
                     System.out.println(loginAcc.getUserName() + "您退出系统成功！");
                     return; // 跳出并结束当前方法
-                case 7:
+                }
+                case 7 -> {
                     // 注销当前登录的账户
-                    if(deleteAccount()){
+                    if (deleteAccount()) {
                         // 销户成功了，回到欢迎界面
                         return;
                     }
-                    break;
-                default:
-                    System.out.println("您当前选择的操作是不存在的，请确认~~");
+                }
+                default -> System.out.println("您当前选择的操作是不存在的，请确认~~");
             }
         }
     }
@@ -161,23 +155,20 @@ public class ATM {
         // 1、问问用户是否确定要销户啊
         System.out.println("请问您确认销户吗？y/n");
         String command = sc.next();
-        switch (command) {
-            case "y":
-                // 确实要销户
-                // 2、判断用户的账户中是否有钱：loginAcc
-                if(loginAcc.getMoney() == 0) {
-                    // 真的销户了
-                    accounts.remove(loginAcc);
-                    System.out.println("您好，您的账户已经成功销户~~");
-                    return true;
-                }else {
-                    System.out.println("对不起，您的账户中存钱金额，不允许销户~~");
-                    return false;
-                }
-            default:
-                System.out.println("好的，您的账户保留！！");
+        if (command.equals("y")) {// 确实要销户
+            // 2、判断用户的账户中是否有钱：loginAcc
+            if (loginAcc.getMoney() == 0) {
+                // 真的销户了
+                accounts.remove(loginAcc);
+                System.out.println("您好，您的账户已经成功销户~~");
+                return true;
+            } else {
+                System.out.println("对不起，您的账户中存钱金额，不允许销户~~");
                 return false;
+            }
         }
+        System.out.println("好的，您的账户保留！！");
+        return false;
     }
 
     /** 转账 */
@@ -343,18 +334,18 @@ public class ATM {
     private String createCardId(){
         while (true) {
             // 1、定义一个String类型的变量记住8位数字作为一个卡号
-            String cardId = "";
+            StringBuilder cardId = new StringBuilder();
             // 2、使用循环，循环8次，每次产生一个随机数给cardId连接起来
             Random r = new Random();
             for (int i = 0; i < 8; i++) {
                 int data = r.nextInt(10); // 0 - 9
-                cardId += data;
+                cardId.append(data);
             }
             // 3、判断cardId中记住的卡号，是否与其他账户的卡号重复了，没有重复，才可以做为一个新卡号返回。
-            Account acc = getAccountByCardId(cardId);
+            Account acc = getAccountByCardId(cardId.toString());
             if(acc == null){
                 // 说明cardId没有找到账户对象，因此cardId没有与其他账户的卡号重复，可以返回它做为一个新卡号
-                return cardId;
+                return cardId.toString();
             }
         }
     }
@@ -362,10 +353,9 @@ public class ATM {
     /** 根据卡号查询账户对象返回 accounts = [c1, c2, c3 ...]*/
     private Account getAccountByCardId(String cardId){
         // 遍历全部的账户对象
-        for (int i = 0; i < accounts.size(); i++) {
-            Account acc = accounts.get(i);
+        for (Account acc : accounts) {
             // 判断这个账户对象acc中的卡号是否是我们要找的卡号
-            if(acc.getCardId().equals(cardId)){
+            if (acc.getCardId().equals(cardId)) {
                 return acc;
             }
         }
