@@ -1,5 +1,6 @@
 package com.itheima.d4_collection_set;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -23,7 +24,8 @@ public class SetTest4 {
 //                return Double.compare(o1.getHeight() , o2.getHeight());
 //            }
 //        });
-        Set<Student> students = new TreeSet<>(( o1,  o2) ->  Double.compare(o1.getHeight() , o2.getHeight()));
+//        Set<Student> students = new TreeSet<>(( o1,  o2) ->  Double.compare(o1.getHeight() , o2.getHeight()));
+        Set<Student> students = new TreeSet<>(Comparator.comparingDouble(Student::getHeight));
         students.add(new Student("蜘蛛精",23, 169.7));
         students.add(new Student("紫霞",22, 169.8));
         students.add(new Student("至尊宝",26, 165.5));

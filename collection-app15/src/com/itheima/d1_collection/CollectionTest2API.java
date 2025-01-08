@@ -3,7 +3,6 @@ package com.itheima.d1_collection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.function.IntFunction;
 
 /**
     目标：掌握Collection集合的常用API.
@@ -50,7 +49,7 @@ public class CollectionTest2API {
         Object[] arr = c.toArray();
         System.out.println(Arrays.toString(arr));
 
-        String[] arr2 = c.toArray(new String[c.size()]);
+        String[] arr2 = c.toArray(new String[0]);
         System.out.println(Arrays.toString(arr2));
 
         System.out.println("--------------------------------------------");
