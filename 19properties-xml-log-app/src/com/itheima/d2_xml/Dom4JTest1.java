@@ -17,7 +17,7 @@ public class Dom4JTest1 {
 
         // 2、使用saxReader对象把需要解析的XML文件读成一个Document对象。
         Document document =
-                saxReader.read("properties-xml-log-app19/src/helloworld.xml");
+                saxReader.read("properties-xml-log-app\\src\\helloworld.xml");
 
         // 3、从文档对象中解析XML文件的全部数据了
         Element root = document.getRootElement();

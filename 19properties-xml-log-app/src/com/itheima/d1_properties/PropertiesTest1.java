@@ -14,7 +14,7 @@ public class PropertiesTest1 {
         System.out.println(properties);
 
         // 2、开始加载属性文件中的键值对数据到properties对象中去
-        properties.load(new FileReader("properties-xml-log-app19/src/users.properties"));
+        properties.load(new FileReader("properties-xml-log-app\\src\\users.properties"));
         System.out.println(properties);
 
         // 3、根据键取值

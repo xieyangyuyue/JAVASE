@@ -10,7 +10,7 @@ public class FileReaderTest1 {
     public static void main(String[] args)  {
         try (
                 // 1、创建一个文件字符输入流管道与源文件接通
-                Reader fr = new FileReader("io-app18/src/itheima01.txt");
+                Reader fr = new FileReader("18io-app/src/itheima01.txt");
                 ){
             // 2、读取文本文件的内容了。
 //            int c; // 记住每次读取的字符编号。

@@ -15,7 +15,7 @@ public class PropertiesTest2 {
         properties.setProperty("张翠山", "susu");
 
         // 2、把properties对象中的键值对数据存入到属性文件中去
-        properties.store(new FileWriter("properties-xml-log-app19/src/users2.properties")
+        properties.store(new FileWriter("properties-xml-log-app/src/users2.properties")
                 , "i saved many users!");
 
     }
